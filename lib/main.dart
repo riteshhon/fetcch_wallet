@@ -1,20 +1,24 @@
+import 'package:fetcch_wallet/utils/const_text.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:no_context_navigation/no_context_navigation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'utils/nav_constants.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+// void main() {
+//   print('main ${ConstText.isLogged}');
+//   runApp(const MyApp());
+// }
+bool? isLogin = false;
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  isLogin = prefs.getBool(ConstText.isLoggedKey);
+  print(isLogin);
+  runApp(
+    MaterialApp(
       useInheritedMediaQuery: true,
       // builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
@@ -26,9 +30,11 @@ class MyApp extends StatelessWidget {
           secondary: UiConstants.secondaryColor,
         ),
       ),
-      initialRoute: NavigationConstants.GETSTARTEDROUTE,
+      initialRoute: isLogin == true
+          ? NavigationConstants.HOMESCREENROUTE
+          : NavigationConstants.GETSTARTEDROUTE,
       routes: NavigationConstants.routes,
       // home: GetStartedScreen(),
-    );
-  }
+    ),
+  );
 }

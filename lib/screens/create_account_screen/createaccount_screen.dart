@@ -34,7 +34,7 @@ class CreateAccountScreen extends StatelessWidget {
                     color: UiConstants.whiteColor,
                   ),
                 ),
-                const SizedBox(height: 120),
+                const SizedBox(height: 80),
                 const Text(
                   'Create Account',
                   style: TextStyle(

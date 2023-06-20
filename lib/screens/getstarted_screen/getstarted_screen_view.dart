@@ -94,7 +94,7 @@ class Page1 extends StatelessWidget {
                         onFinish: () async {
                           viewModel.mainController.nextPage(
                             duration: const Duration(seconds: 1),
-                            curve: Curves.ease,
+                            curve: Curves.linear,
                           );
                         },
                         isFinished: viewModel.isFinish,
@@ -103,7 +103,7 @@ class Page1 extends StatelessWidget {
                             viewModel.buttonOnSwipe(true);
                           });
                         },
-                        activeColor: UiConstants.secondaryColor,
+                        activeColor: UiConstants.bgColorGrey,
                         buttonWidget: const Icon(
                           Icons.double_arrow_rounded,
                           color: UiConstants.whiteColor,
