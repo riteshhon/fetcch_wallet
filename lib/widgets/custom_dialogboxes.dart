@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:no_context_navigation/no_context_navigation.dart';
 
 class SuccessAlertBox {
-  final BuildContext? context;
+  final BuildContext context;
   final String? title;
   final IconData? icon;
   final String? messageText;
@@ -12,19 +12,22 @@ class SuccessAlertBox {
   final Color? buttonColor;
   final Color? buttonTextColor;
   final String? buttonText;
-  SuccessAlertBox(
-      {this.context,
-      this.title,
-      this.messageText,
-      this.titleTextColor,
-      this.messageTextColor,
-      this.buttonColor,
-      this.buttonText,
-      this.buttonTextColor,
-      this.icon}) {
+  void Function() buttonOnClick;
+  SuccessAlertBox({
+    required this.context,
+    this.title,
+    this.messageText,
+    this.titleTextColor,
+    this.messageTextColor,
+    this.buttonColor,
+    this.buttonText,
+    this.buttonTextColor,
+    this.icon,
+    required this.buttonOnClick,
+  }) {
     showDialog(
         barrierDismissible: false,
-        context: context!,
+        context: context,
         builder: (BuildContext context) {
           return SimpleDialog(
             shape:
@@ -65,11 +68,7 @@ class SuccessAlertBox {
                         ),
                         shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)))),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      navService
-                          .pushNamed(NavigationConstants.SECUREWALLETROUTE);
-                    },
+                    onPressed: () => buttonOnClick(),
                     child: Text(
                       buttonText ?? "Close",
                       style: TextStyle(color: buttonTextColor ?? Colors.white),

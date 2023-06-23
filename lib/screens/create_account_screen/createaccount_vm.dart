@@ -1,11 +1,17 @@
+import 'package:fetcch_wallet/utils/const_text.dart';
+import 'package:fetcch_wallet/utils/nav_constants.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
+import 'package:fetcch_wallet/widgets/custom_dialogboxes.dart';
 import 'package:flutter/material.dart';
+import 'package:no_context_navigation/no_context_navigation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateAccountScreenViewModel extends ChangeNotifier {
   bool _isCheck = false;
   bool _isReveal = false;
   double _blurVal = 6;
   bool _show2Warning = false;
+  late TextEditingController _payIdController;
 
   // select word
   bool _word1 = false,
@@ -43,6 +49,7 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
   bool get word12 => _word12;
   String get passCodeValue => _passCodeValue;
   PageController get mainController => _mainController;
+  TextEditingController get payIdController => _payIdController;
 
   int get selectedWords => _selectedWords;
 
@@ -52,6 +59,7 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
 
   void initController() {
     _mainController = PageController();
+    _payIdController = TextEditingController();
   }
 
   void checkBoxChecked(bool value) {
@@ -74,8 +82,22 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void matchPasscode(BuildContext context, String value) {
+  Future<void> matchPasscode(BuildContext context, String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     if (value == _passCodeValue) {
+      SuccessAlertBox(
+        context: context,
+        buttonText: "Continue",
+        messageText: "Passcode successfully set",
+        title: "Success",
+        buttonOnClick: () {
+          Navigator.of(context).pop();
+          navService
+              .pushNamedAndRemoveUntil(NavigationConstants.CREATEPAYIDROUTE);
+        },
+      );
+      prefs.setString(ConstText.isPassCodeKey, value);
+      prefs.setBool(ConstText.isPassCodeKey, true);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -90,6 +112,11 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
       );
     }
     notifyListeners();
+  }
+
+  Future<void> setPayId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(ConstText.isPayIdKey, "${_payIdController.text}@pay");
   }
 
   void updateWord1(BuildContext context, int value) {

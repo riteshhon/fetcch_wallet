@@ -112,6 +112,7 @@ class CreatePayId5Screen extends StatelessWidget {
                       color: UiConstants.lightGreyColor,
                       fontWeight: FontWeight.bold,
                     ),
+                    controller: viewModel.payIdController,
                     decoration: InputDecoration(
                         hintText: "Enter your ID here",
                         hintStyle: const TextStyle(

@@ -4,6 +4,7 @@ import 'package:fetcch_wallet/utils/ui_constant.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:no_context_navigation/no_context_navigation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,7 +15,12 @@ import 'utils/nav_constants.dart';
 //   print('main ${ConstText.isLogged}');
 //   runApp(const MyApp());
 // }
+
 bool? isLogin = false;
+bool? isPasscode = false;
+String? passcodeVal = "";
+String? payIdVal = "";
+var logger = Logger();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +28,9 @@ Future<void> main() async {
   await Firebase.initializeApp().then((value) => Get.put(AuthServices()));
   SharedPreferences prefs = await SharedPreferences.getInstance();
   isLogin = prefs.getBool(ConstText.isLoggedKey);
+  isPasscode = prefs.getBool(ConstText.isPassCodeKey);
+  passcodeVal = prefs.getString(ConstText.isPassCodeValKey);
+  payIdVal = prefs.getString(ConstText.isPayIdKey);
   runApp(const Core());
 }
 
@@ -32,6 +41,8 @@ class Core extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logger.i(
+        '${"login :: " + isLogin.toString() + "\npasscode :: " + isPasscode.toString() + "\npasscode val :: " + passcodeVal.toString() + "\npayid :: " + payIdVal.toString()}');
     return MaterialApp(
       useInheritedMediaQuery: true,
       // builder: DevicePreview.appBuilder,
@@ -44,9 +55,13 @@ class Core extends StatelessWidget {
           secondary: UiConstants.secondaryColor,
         ),
       ),
-      initialRoute: isLogin == true
-          ? NavigationConstants.HOMESCREENROUTE
-          : NavigationConstants.GETSTARTEDROUTE,
+      initialRoute: isPasscode == null
+          ? NavigationConstants.PROTECTWALLETROUTE
+          : payIdVal == null
+              ? NavigationConstants.CREATEPAYIDROUTE
+              : isLogin == true
+                  ? NavigationConstants.HOMESCREENROUTE
+                  : NavigationConstants.GETSTARTEDROUTE,
       routes: NavigationConstants.routes,
       // home: GetStartedScreen(),
     );
