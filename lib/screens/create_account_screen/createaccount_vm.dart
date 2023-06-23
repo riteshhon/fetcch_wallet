@@ -1,8 +1,16 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:fetcch_wallet/main.dart';
+import 'package:fetcch_wallet/model/loginUserModel.dart';
+import 'package:fetcch_wallet/model/userModel.dart';
+import 'package:fetcch_wallet/services/post_repo.dart';
 import 'package:fetcch_wallet/utils/const_text.dart';
 import 'package:fetcch_wallet/utils/nav_constants.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
 import 'package:fetcch_wallet/widgets/custom_dialogboxes.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:logger/logger.dart';
 import 'package:no_context_navigation/no_context_navigation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,6 +20,9 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
   double _blurVal = 6;
   bool _show2Warning = false;
   late TextEditingController _payIdController;
+  final PostRepo _postRepo = PostRepo();
+  late LoginUserModel _loginUserModel;
+  late UserModel _userModel;
 
   // select word
   bool _word1 = false,
@@ -50,6 +61,8 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
   String get passCodeValue => _passCodeValue;
   PageController get mainController => _mainController;
   TextEditingController get payIdController => _payIdController;
+  LoginUserModel get loginUserModel => _loginUserModel;
+  UserModel get userModel => _userModel;
 
   int get selectedWords => _selectedWords;
 
@@ -82,7 +95,7 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> matchPasscode(BuildContext context, String value) async {
+  void matchPasscode(BuildContext context, String value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (value == _passCodeValue) {
       SuccessAlertBox(
@@ -96,7 +109,7 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
               .pushNamedAndRemoveUntil(NavigationConstants.CREATEPAYIDROUTE);
         },
       );
-      prefs.setString(ConstText.isPassCodeKey, value);
+      prefs.setString(ConstText.isPassCodeValKey, value);
       prefs.setBool(ConstText.isPassCodeKey, true);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -114,7 +127,7 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setPayId() async {
+  void setPayId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(ConstText.isPayIdKey, "${_payIdController.text}@pay");
   }
@@ -324,13 +337,6 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
   }
 
   void checkWordsCount(BuildContext context, int value) {
-    // print('value === $_selectedWords');
-    // if (value < 0) {
-    //   _selectedWords = _selectedWords - 1;
-    // } else {
-    //   _selectedWords += value;
-    // }
-    // print('after value === $_selectedWords');
     if (value <= 2) {
     } else {
       _selectedWords = 2;
@@ -350,5 +356,36 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
       }
     }
     notifyListeners();
+  }
+
+  void createUser(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _passCodeValue = prefs.getString(ConstText.isPassCodeValKey).toString();
+
+    Response response;
+    // response = await _postRepo.createUser('${firebseAuth!.displayName}',
+    //     '${firebseAuth!.email}', _passCodeValue, _payIdController.text);
+
+    // print(response.body);
+    // if (response.statusCode == 202 || response.statusCode == 200) {
+    //   _userModel = userFromJson(response.body);
+    //   print(_userModel.passcode);
+    //   notifyListeners();
+    // } else {
+    //   logger.log(Level.error,
+    //       "Create user failed ${response.body} and status code was ${response.statusCode}");
+    // }
+
+    response = await _postRepo.loginUser('ritesh@viit.ac.in', '555566');
+    print(response.body);
+
+    logger.i('${firebseAuth!.displayName}'
+        " :: "
+        '${firebseAuth!.email}'
+        " :: "
+        '$_passCodeValue'
+        " :: "
+        '${_payIdController.text}');
+    prefs.setBool(ConstText.isLoggedKey, true);
   }
 }

@@ -53,7 +53,6 @@ class AuthServices {
 
         user = userCredential.user;
         if (user!.uid.isNotEmpty) {
-          prefs.setBool(ConstText.isLoggedKey, true);
           // ignore: use_build_context_synchronously
           navService
               .pushNamedAndRemoveUntil(NavigationConstants.PROTECTWALLETROUTE);

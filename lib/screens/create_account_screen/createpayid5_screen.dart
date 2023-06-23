@@ -153,9 +153,10 @@ class CreatePayId5Screen extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            navService.pushNamed(
-                              NavigationConstants.CREATINGWALLETROUTE,
-                            );
+                            // navService.pushNamed(
+                            //   NavigationConstants.CREATINGWALLETROUTE,
+                            // );
+                            viewModel.createUser(context);
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(10.0),

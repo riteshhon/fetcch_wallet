@@ -1,6 +1,7 @@
 import 'package:fetcch_wallet/utils/auth_services.dart';
 import 'package:fetcch_wallet/utils/const_text.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,7 @@ bool? isPasscode = false;
 String? passcodeVal = "";
 String? payIdVal = "";
 var logger = Logger();
+final firebseAuth = FirebaseAuth.instance.currentUser;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +44,7 @@ class Core extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     logger.i(
-        '${"login :: " + isLogin.toString() + "\npasscode :: " + isPasscode.toString() + "\npasscode val :: " + passcodeVal.toString() + "\npayid :: " + payIdVal.toString()}');
+        "firebseAuth :: ${firebseAuth?.uid} \nlogin :: $isLogin\npasscode :: $isPasscode\npasscode val :: $passcodeVal\npayid :: $payIdVal");
     return MaterialApp(
       useInheritedMediaQuery: true,
       // builder: DevicePreview.appBuilder,
@@ -55,12 +57,23 @@ class Core extends StatelessWidget {
           secondary: UiConstants.secondaryColor,
         ),
       ),
-      initialRoute: isPasscode == null
-          ? NavigationConstants.PROTECTWALLETROUTE
-          : payIdVal == null
-              ? NavigationConstants.CREATEPAYIDROUTE
-              : isLogin == true
-                  ? NavigationConstants.HOMESCREENROUTE
+      // initialRoute: firebseAuth?.uid != null
+      //     ? NavigationConstants.PROTECTWALLETROUTE
+      //     : isLogin == true
+      //         ? NavigationConstants.HOMESCREENROUTE
+      //         : isLogin == null
+      //             ? NavigationConstants.GETSTARTEDROUTE
+      //             : isPasscode == null
+      //                 ? NavigationConstants.PROTECTWALLETROUTE
+      //                 : payIdVal == null
+      //                     ? NavigationConstants.CREATEPAYIDROUTE
+      //                     : NavigationConstants.GETSTARTEDROUTE,
+      initialRoute: firebseAuth?.uid == null
+          ? NavigationConstants.GETSTARTEDROUTE
+          : passcodeVal == null
+              ? NavigationConstants.PROTECTWALLETROUTE
+              : payIdVal == null
+                  ? NavigationConstants.CREATEPAYIDROUTE
                   : NavigationConstants.GETSTARTEDROUTE,
       routes: NavigationConstants.routes,
       // home: GetStartedScreen(),

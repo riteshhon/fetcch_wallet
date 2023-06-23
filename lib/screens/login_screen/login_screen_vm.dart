@@ -107,7 +107,6 @@ class LoginScreenViewModel extends ChangeNotifier {
       _creatingUser = false;
       notifyListeners();
       SharedPreferences pref = await SharedPreferences.getInstance();
-      pref.setBool(ConstText.isLoggedKey, true);
       navService.pushNamedAndRemoveUntil(
         NavigationConstants.HOMESCREENROUTE,
         predicate: (p0) => false,

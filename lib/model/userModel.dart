@@ -5,10 +5,10 @@ UserModel userFromJson(String str) => UserModel.fromJson(json.decode(str));
 String userToJson(UserModel data) => json.encode(data.toJson());
 
 class UserModel {
-  String email;
-  String passcode;
-  String name;
-  String identity;
+  String? email;
+  String? passcode;
+  String? name;
+  String? identity;
 
   UserModel({
     required this.email,
