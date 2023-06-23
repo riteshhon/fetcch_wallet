@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>851553245963-akoqrcckdua323n7cf7cuqqre4bp1a2h.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.851553245963-akoqrcckdua323n7cf7cuqqre4bp1a2h</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAJ8bzmUk5AVc7Tny8MHCGABaykauD6uTY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>851553245963</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.fetcchWallet</string>
+	<key>PROJECT_ID</key>
+	<string>fetcch-wallet-665df</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fetcch-wallet-665df.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:851553245963:ios:166f3b03fa9fd73bc2200e</string>
+</dict>
+</plist>

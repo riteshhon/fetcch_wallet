@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fetcch_wallet">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="fetcch_wallet"
         android:name="${applicationName}"

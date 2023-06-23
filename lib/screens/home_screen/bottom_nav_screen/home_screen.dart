@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({
     super.key,
-    required this.viewModel,
+    this.viewModel,
     required this.mainContext,
   });
 
-  HomeViewModel viewModel;
+  HomeViewModel? viewModel;
   final BuildContext mainContext;
 
   @override

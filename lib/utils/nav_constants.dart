@@ -2,6 +2,7 @@ import 'package:fetcch_wallet/screens/create_account_screen/backupwallet3_screen
 import 'package:fetcch_wallet/screens/create_account_screen/createaccount_screen.dart';
 import 'package:fetcch_wallet/screens/create_account_screen/createpayid5_screen.dart';
 import 'package:fetcch_wallet/screens/create_account_screen/creatingwallet_screen.dart';
+import 'package:fetcch_wallet/screens/create_account_screen/protect_wallet/enter_passcode_screen.dart';
 import 'package:fetcch_wallet/screens/create_account_screen/protectwallet1_screen.dart';
 import 'package:fetcch_wallet/screens/create_account_screen/securewallet2_screen.dart';
 import 'package:fetcch_wallet/screens/create_account_screen/selectword4_screen.dart';
@@ -21,6 +22,7 @@ class NavigationConstants {
   static const String CREATEPAYIDROUTE = "/createpayid";
   static const String CREATINGWALLETROUTE = "/creatingwallet";
   static const String HOMESCREENROUTE = "/home";
+  static const String PASSCODESCREENROUTE = "/passcode";
 
   static final routes = {
     GETSTARTEDROUTE: (context) => GetStartedScreen(),
@@ -33,5 +35,6 @@ class NavigationConstants {
     CREATEPAYIDROUTE: (context) => CreatePayId5Screen(),
     CREATINGWALLETROUTE: (context) => CreatingWalletScreen(),
     HOMESCREENROUTE: (context) => Home(),
+    PASSCODESCREENROUTE: (context) => PasscodeScreen(),
   };
 }

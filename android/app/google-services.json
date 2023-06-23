@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "851553245963",
+    "project_id": "fetcch-wallet-665df",
+    "storage_bucket": "fetcch-wallet-665df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851553245963:android:2d2f5c96f9332551c2200e",
+        "android_client_info": {
+          "package_name": "com.example.fetcch_wallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "851553245963-nlqc30i3s25iormg5l8u82294r2hlc4r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_9CXw4L03THTrqpLY6a4XyXts6qgDyYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "851553245963-nlqc30i3s25iormg5l8u82294r2hlc4r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "851553245963-akoqrcckdua323n7cf7cuqqre4bp1a2h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fetcchWallet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

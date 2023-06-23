@@ -1,4 +1,5 @@
 import 'package:fetcch_wallet/screens/create_account_screen/createaccount_vm.dart';
+import 'package:fetcch_wallet/utils/auth_services.dart';
 import 'package:fetcch_wallet/utils/nav_constants.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
 import 'package:flutter/material.dart';
@@ -65,8 +66,9 @@ class CreateAccountScreen extends StatelessWidget {
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: () {
-                    navService
-                        .pushNamed(NavigationConstants.PROTECTWALLETROUTE);
+                    // navService
+                    //     .pushNamed(NavigationConstants.PROTECTWALLETROUTE);
+                    AuthServices.signInWithGoogle(context: context);
                   },
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(

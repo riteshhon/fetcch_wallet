@@ -21,6 +21,8 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
       _word11 = false,
       _word12 = false;
   int _selectedWords = 0;
+  String _passCodeValue = "";
+  late PageController _mainController;
 
   bool get isCheck => _isCheck;
   bool get isReveal => _isReveal;
@@ -39,6 +41,8 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
   bool get word10 => _word10;
   bool get word11 => _word11;
   bool get word12 => _word12;
+  String get passCodeValue => _passCodeValue;
+  PageController get mainController => _mainController;
 
   int get selectedWords => _selectedWords;
 
@@ -46,7 +50,9 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
     initController();
   }
 
-  void initController() {}
+  void initController() {
+    _mainController = PageController();
+  }
 
   void checkBoxChecked(bool value) {
     _isCheck = value;
@@ -59,6 +65,29 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
       _blurVal = 0;
     } else {
       _blurVal = 6;
+    }
+    notifyListeners();
+  }
+
+  void setPassCode(String value) {
+    _passCodeValue = value;
+    notifyListeners();
+  }
+
+  void matchPasscode(BuildContext context, String value) {
+    if (value == _passCodeValue) {
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Passcode is not match',
+            style: TextStyle(
+              color: UiConstants.whiteColor,
+            ),
+          ),
+          backgroundColor: UiConstants.darkColorPurple,
+        ),
+      );
     }
     notifyListeners();
   }

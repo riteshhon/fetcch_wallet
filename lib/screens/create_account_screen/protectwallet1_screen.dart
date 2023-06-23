@@ -172,7 +172,7 @@ class ProtectWallet1Screen extends StatelessWidget {
                           onPressed: () {
                             if (viewModel.isCheck) {
                               navService.pushNamed(
-                                NavigationConstants.SECUREWALLETROUTE,
+                                NavigationConstants.PASSCODESCREENROUTE,
                               );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -183,7 +183,7 @@ class ProtectWallet1Screen extends StatelessWidget {
                                       color: UiConstants.whiteColor,
                                     ),
                                   ),
-                                  backgroundColor: UiConstants.redColor,
+                                  backgroundColor: UiConstants.darkColorPurple,
                                 ),
                               );
                             }
@@ -227,7 +227,7 @@ class ProtectWallet1Screen extends StatelessWidget {
                                       color: UiConstants.whiteColor,
                                     ),
                                   ),
-                                  backgroundColor: UiConstants.redColor,
+                                  backgroundColor: UiConstants.darkColorPurple,
                                 ),
                               );
                             }

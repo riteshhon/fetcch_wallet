@@ -8,7 +8,7 @@ class HomeViewModel extends ChangeNotifier {
 
   void initialise(BuildContext context) {
     initController();
-    print('initial');
+    // print('initial');
   }
 
   void initController() {}
