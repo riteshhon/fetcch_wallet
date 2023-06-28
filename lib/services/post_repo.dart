@@ -1,7 +1,4 @@
 import 'dart:convert';
-
-import 'package:fetcch_wallet/model/loginUserModel.dart';
-import 'package:fetcch_wallet/model/userModel.dart';
 import 'package:fetcch_wallet/utils/const_text.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -18,20 +15,18 @@ class PostRepo with ChangeNotifier {
     String passcode,
     String identity,
   ) async {
-    logger.i("user data \n ${name} \n ${email} \n ${passcode} \n ${identity}");
-
     try {
       Response response = await http.post(
-        Uri.parse('https://wallet-api.fetcch.xyz/user'),
+        Uri.parse('${ConstText.baseUrl}/user'),
         headers: {
-          'content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
+          'content-type': 'application/json',
         },
-        body: {
-          "email": "ritesh@viit.ac.in",
-          "passcode": "555566",
-          "identity": "B_74_ Ritesh Hon",
-          "name": "ritesh@fetcch"
-        },
+        body: jsonEncode({
+          "name": name,
+          "email": email,
+          "passcode": passcode,
+          "identity": '$identity@pay'
+        }),
       );
       // userFromJson(response.body);
 
@@ -43,26 +38,22 @@ class PostRepo with ChangeNotifier {
     }
   }
 
-  //Create user api call
+  //Login user api call
   Future<Response> loginUser(
     String email,
     String passcode,
   ) async {
-    final body1 = jsonEncode({
-      "email": "ritesh@gmail.com",
-      "passcode": "12345",
-    });
     try {
       Response response = await http.post(
         Uri.parse('${ConstText.baseUrl}/user/login'),
         headers: {
-          'content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
-          'host': "wallet-api.fetcch.xyz",
+          'content-type': 'application/json',
         },
-        body: body1,
+        body: jsonEncode({
+          "email": email,
+          "passcode": passcode,
+        }),
       );
-
-      /// all the decoding part is been done by the model file.
       return response;
     } catch (e) {
       logger.e("Login user api failed. \n ${e.toString()}");

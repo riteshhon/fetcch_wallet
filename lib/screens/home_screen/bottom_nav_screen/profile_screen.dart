@@ -1,5 +1,7 @@
+// ignore_for_file: must_be_immutable
 import 'package:fetcch_wallet/screens/home_screen/home_vm.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
+import 'package:fetcch_wallet/widgets/circular_progressIndicator.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -68,7 +70,10 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                   child: CircleAvatar(
-                    radius: 48, // Image radius
+                    radius: 48,
+                    backgroundColor: UiConstants.whiteColor,
+                    backgroundImage: const NetworkImage(
+                        'https://www.pngmart.com/files/22/User-Avatar-Profile-PNG-Isolated-Transparent-Picture.png'), // Image radius
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: Padding(
@@ -96,9 +101,6 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    backgroundColor: UiConstants.whiteColor,
-                    backgroundImage: const NetworkImage(
-                        'https://www.pngmart.com/files/22/User-Avatar-Profile-PNG-Isolated-Transparent-Picture.png'),
                   ),
                 ),
               ),
@@ -271,6 +273,46 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              // Temp LogOut button
+              const SizedBox(height: 10),
+              Container(
+                width: double.infinity,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+                child: !viewModel.isLoading
+                    ? ElevatedButton.icon(
+                        icon: const Icon(
+                          Icons.logout_rounded,
+                          color: UiConstants.bgColorGrey,
+                        ),
+                        onPressed: () async {
+                          viewModel.signOut();
+                        },
+                        style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                          backgroundColor: const MaterialStatePropertyAll(
+                            UiConstants.whiteColor,
+                          ),
+                          padding: const MaterialStatePropertyAll(
+                            EdgeInsets.symmetric(vertical: 12),
+                          ),
+                        ),
+                        label: const Text(
+                          'Log Out',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: UiConstants.bgColorGrey,
+                            fontSize: 14,
+                          ),
+                        ),
+                      )
+                    : ShowCircularProgressIndicator(),
               ),
             ],
           ),

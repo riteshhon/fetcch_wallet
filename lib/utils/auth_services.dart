@@ -2,13 +2,11 @@ import 'package:fetcch_wallet/main.dart';
 import 'package:fetcch_wallet/screens/getstarted_screen/getstarted_screen_view.dart';
 import 'package:fetcch_wallet/screens/home_screen/bottom_nav_screen/home_screen.dart';
 import 'package:fetcch_wallet/screens/home_screen/home_vm.dart';
-import 'package:fetcch_wallet/utils/const_text.dart';
 import 'package:fetcch_wallet/utils/nav_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:no_context_navigation/no_context_navigation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthServices {
   // handle auth state
@@ -31,7 +29,6 @@ class AuthServices {
   static Future<User?> signInWithGoogle({required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final GoogleSignIn googleSignIn = GoogleSignIn();
     googleSignIn.signOut();
@@ -65,6 +62,7 @@ class AuthServices {
         }
       } catch (e) {
         // handle the error here
+        logger.e(e);
       }
     }
 

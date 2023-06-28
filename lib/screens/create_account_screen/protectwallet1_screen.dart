@@ -37,15 +37,15 @@ class ProtectWallet1Screen extends StatelessWidget {
                         color: UiConstants.whiteColor,
                       ),
                     ),
-                    Spacer(),
-                    Column(
+                    const Spacer(),
+                    const Column(
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(top: 40),
+                          padding: EdgeInsets.only(top: 40),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const <Widget>[
+                            children: <Widget>[
                               SizedBox(
                                 width: 140.0,
                                 child: StepProgressIndicator(
@@ -73,7 +73,7 @@ class ProtectWallet1Screen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 ),
                 const SizedBox(height: 60),

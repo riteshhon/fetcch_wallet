@@ -1,12 +1,8 @@
 import 'package:fetcch_wallet/screens/create_account_screen/createaccount_vm.dart';
-import 'package:fetcch_wallet/utils/nav_constants.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import 'package:no_context_navigation/no_context_navigation.dart';
 import 'package:stacked/stacked.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class PasscodeScreen extends StatelessWidget {
   const PasscodeScreen({super.key});

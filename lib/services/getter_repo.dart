@@ -10,24 +10,21 @@ class GetterRepo with ChangeNotifier {
   //Create user api call
   Future<Response> getUser(
     String email,
+    String token,
   ) async {
     try {
       Response response = await http.get(
-        Uri.parse('${ConstText.baseUrl}/user?email=ritesh@gmail.com'),
+        Uri.parse('${ConstText.baseUrl}/user?email=$email'),
         headers: {
-          'content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
-          'host': "wallet-api.fetcch.xyz",
-          'Accept': 'application/json',
-          'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InJpdGVzaEBnbWFpbC5jb20iLCJpYXQiOjE2ODc1MTUwODgsImV4cCI6MTY4NzUxNjg4OH0.MGBizkljIkztJjzmhqkAGclVNqDjwjjNrBZLpfaCJ7I',
+          'content-type': 'application/json',
+          'Authorization': 'Bearer $token',
         },
       );
-      print(response.body);
 
-      /// all the decoding part is been done by the model file.
+      logger.i('Get user response \n${response.body}');
       return response;
     } catch (e) {
-      logger.e("Login user api failed. \n ${e.toString()}");
+      logger.e("Get user api failed. \n ${e.toString()}");
       rethrow;
     }
   }

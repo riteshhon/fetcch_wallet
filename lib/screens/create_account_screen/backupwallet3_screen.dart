@@ -1,6 +1,5 @@
 import 'package:blur/blur.dart';
 import 'package:fetcch_wallet/screens/create_account_screen/createaccount_vm.dart';
-import 'package:fetcch_wallet/screens/create_account_screen/selectword4_screen.dart';
 import 'package:fetcch_wallet/utils/nav_constants.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
 import 'package:flutter/material.dart';
@@ -40,14 +39,14 @@ class BackupWallet3Screen extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    Column(
+                    const Column(
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(top: 40),
+                          padding: EdgeInsets.only(top: 40),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const <Widget>[
+                            children: <Widget>[
                               SizedBox(
                                 width: 140.0,
                                 child: StepProgressIndicator(
@@ -135,14 +134,14 @@ class BackupWallet3Screen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           !viewModel.isReveal
-                              ? Center(
+                              ? const Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: const <Widget>[
+                                      children: <Widget>[
                                         Icon(
                                           Icons.lock_rounded,
                                           size: 36,

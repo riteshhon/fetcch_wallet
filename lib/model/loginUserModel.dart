@@ -1,6 +1,4 @@
-// To parse this JSON data, do
-//
-//     final loginUserModel = loginUserModelFromJson(jsonString);
+// ignore_for_file: file_names
 
 import 'dart:convert';
 

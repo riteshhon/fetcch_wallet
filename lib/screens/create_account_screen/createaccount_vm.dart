@@ -1,13 +1,16 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:fetcch_wallet/main.dart';
+import 'package:fetcch_wallet/model/errorModel.dart';
 import 'package:fetcch_wallet/model/loginUserModel.dart';
-import 'package:fetcch_wallet/model/userModel.dart';
+import 'package:fetcch_wallet/model/createUserModel.dart';
 import 'package:fetcch_wallet/services/post_repo.dart';
 import 'package:fetcch_wallet/utils/const_text.dart';
 import 'package:fetcch_wallet/utils/nav_constants.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
 import 'package:fetcch_wallet/widgets/custom_dialogboxes.dart';
+import 'package:fetcch_wallet/widgets/loading_dialog.dart';
+import 'package:fetcch_wallet/widgets/show_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
@@ -19,10 +22,13 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
   bool _isReveal = false;
   double _blurVal = 6;
   bool _show2Warning = false;
+  bool _isCreateUserLoading = false;
   late TextEditingController _payIdController;
   final PostRepo _postRepo = PostRepo();
   late LoginUserModel _loginUserModel;
-  late UserModel _userModel;
+  late CreateUserModel _createUserModel;
+  late ErrorModel _errorModel;
+  late Response response;
 
   // select word
   bool _word1 = false,
@@ -58,15 +64,18 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
   bool get word10 => _word10;
   bool get word11 => _word11;
   bool get word12 => _word12;
+  bool get isCreateUserLoading => _isCreateUserLoading;
   String get passCodeValue => _passCodeValue;
   PageController get mainController => _mainController;
   TextEditingController get payIdController => _payIdController;
   LoginUserModel get loginUserModel => _loginUserModel;
-  UserModel get userModel => _userModel;
+  CreateUserModel get userModel => _createUserModel;
+  ErrorModel get errorModel => _errorModel;
 
   int get selectedWords => _selectedWords;
 
   void initialise(BuildContext context) {
+    fToast.init(context);
     initController();
   }
 
@@ -96,40 +105,24 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
   }
 
   void matchPasscode(BuildContext context, String value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     if (value == _passCodeValue) {
-      SuccessAlertBox(
-        context: context,
-        buttonText: "Continue",
-        messageText: "Passcode successfully set",
-        title: "Success",
-        buttonOnClick: () {
-          Navigator.of(context).pop();
-          navService
-              .pushNamedAndRemoveUntil(NavigationConstants.CREATEPAYIDROUTE);
-        },
-      );
-      prefs.setString(ConstText.isPassCodeValKey, value);
-      prefs.setBool(ConstText.isPassCodeKey, true);
+      showLoadingDialog(context, true);
+      // logic to check user exist or not
+      loginUser(context, passCodeValue);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Passcode is not match',
-            style: TextStyle(
-              color: UiConstants.whiteColor,
-            ),
-          ),
-          backgroundColor: UiConstants.darkColorPurple,
-        ),
+      showToast(
+        fToast,
+        'Passcode does not match',
+        Icons.cancel_rounded,
+        Colors.red[400]!,
       );
     }
     notifyListeners();
   }
 
-  void setPayId() async {
+  void setPayId(String value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(ConstText.isPayIdKey, "${_payIdController.text}@pay");
+    prefs.setString(ConstText.isPayIdKey, value);
   }
 
   void updateWord1(BuildContext context, int value) {
@@ -359,33 +352,99 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
   }
 
   void createUser(BuildContext context) async {
+    _isCreateUserLoading = true;
+    notifyListeners();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _passCodeValue = prefs.getString(ConstText.isPassCodeValKey).toString();
+    if (_payIdController.text.isNotEmpty) {
+      response = await _postRepo.createUser(
+        '${firebseAuth?.displayName}',
+        '${firebseAuth?.email}',
+        _passCodeValue,
+        _payIdController.text,
+      );
+      logger.i('Create user response \n ${response.body}');
+      prefs.setString(ConstText.isPayIdKey, _payIdController.text);
+      if (response.statusCode == 202 || response.statusCode == 200) {
+        _createUserModel = userFromJson(response.body);
+        loginUser(context, _passCodeValue);
+        _isCreateUserLoading = false;
+        notifyListeners();
+      } else {
+        _errorModel = erroModelFromJson(response.body);
+        logger.e(Level.error,
+            "Create user failed ${response.body} and status code was ${response.statusCode}");
+        _isCreateUserLoading = false;
+        notifyListeners();
+      }
+      prefs.setBool(ConstText.isLoggedKey, true);
+    } else {
+      _isCreateUserLoading = false;
+      showToast(
+        fToast,
+        'Pay Id should not be empty',
+        Icons.cancel_rounded,
+        Colors.red[400]!,
+      );
+    }
+  }
 
-    Response response;
-    // response = await _postRepo.createUser('${firebseAuth!.displayName}',
-    //     '${firebseAuth!.email}', _passCodeValue, _payIdController.text);
+  void loginUser(BuildContext context, String passCodeValue) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    response =
+        await _postRepo.loginUser('${firebseAuth?.email}', passCodeValue);
 
-    // print(response.body);
-    // if (response.statusCode == 202 || response.statusCode == 200) {
-    //   _userModel = userFromJson(response.body);
-    //   print(_userModel.passcode);
-    //   notifyListeners();
-    // } else {
-    //   logger.log(Level.error,
-    //       "Create user failed ${response.body} and status code was ${response.statusCode}");
-    // }
-
-    response = await _postRepo.loginUser('ritesh@viit.ac.in', '555566');
-    print(response.body);
-
-    logger.i('${firebseAuth!.displayName}'
-        " :: "
-        '${firebseAuth!.email}'
-        " :: "
-        '$_passCodeValue'
-        " :: "
-        '${_payIdController.text}');
-    prefs.setBool(ConstText.isLoggedKey, true);
+    if (response.statusCode == 202 || response.statusCode == 200) {
+      _loginUserModel = loginUserModelFromJson(response.body);
+      showLoadingDialog(context, false);
+      prefs.setString(
+        ConstText.accessTokenKey,
+        _loginUserModel.data.tokens.accessToken,
+      );
+      prefs.setString(ConstText.isPassCodeValKey, passCodeValue);
+      prefs.setBool(ConstText.isPassCodeKey, true);
+      navService.pushNamedAndRemoveUntil(
+        NavigationConstants.HOMESCREENROUTE,
+        args: true,
+      );
+      logger.i('Login user response \n ${response.body}');
+      prefs.setBool(ConstText.isLoggedKey, true);
+    } else if (response.statusCode == 400) {
+      _errorModel = erroModelFromJson(response.body);
+      if (_errorModel.error.contains('UserDoesNotExists ')) {
+        prefs.setString(ConstText.isPassCodeValKey, passCodeValue);
+        prefs.setBool(ConstText.isPassCodeKey, true);
+        SuccessAlertBox(
+          context: context,
+          buttonText: "Create Pay ID",
+          messageText: "Passcode successfully set, Please create your pay id",
+          title: "Success",
+          buttonOnClick: () {
+            Navigator.of(context).pop();
+            navService
+                .pushNamedAndRemoveUntil(NavigationConstants.CREATEPAYIDROUTE);
+          },
+        );
+      } else {
+        showLoadingDialog(context, false);
+        logger.e('Login error \n ${response.body}');
+        showToast(
+          fToast,
+          _errorModel.error,
+          Icons.cancel_rounded,
+          Colors.red[400]!,
+        );
+      }
+    } else {
+      showLoadingDialog(context, false);
+      showToast(
+        fToast,
+        response.body,
+        Icons.cancel_rounded,
+        Colors.red[400]!,
+      );
+      logger.log(Level.error,
+          "Login user failed ${response.body} and status code was ${response.statusCode}");
+    }
   }
 }

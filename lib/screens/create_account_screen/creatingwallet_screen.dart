@@ -1,12 +1,8 @@
-import 'package:blur/blur.dart';
 import 'package:fetcch_wallet/screens/create_account_screen/createaccount_vm.dart';
-import 'package:fetcch_wallet/utils/nav_constants.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:no_context_navigation/no_context_navigation.dart';
 import 'package:stacked/stacked.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class CreatingWalletScreen extends StatefulWidget {
   const CreatingWalletScreen({super.key});

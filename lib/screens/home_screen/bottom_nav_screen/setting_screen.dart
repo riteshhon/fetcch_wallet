@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:fetcch_wallet/screens/home_screen/home_vm.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
 import 'package:flutter/material.dart';
@@ -41,10 +43,10 @@ class SettingScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
+                    child: const Padding(
+                      padding: EdgeInsets.all(10.0),
                       child: Row(
-                        children: const [
+                        children: [
                           Text(
                             "ritesh@pay",
                             style: TextStyle(
@@ -110,10 +112,10 @@ class SettingScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {},
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(10.0),
                   child: Row(
-                    children: const [
+                    children: [
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
@@ -151,10 +153,10 @@ class SettingScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {},
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(10.0),
                   child: Row(
-                    children: const [
+                    children: [
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
@@ -192,10 +194,10 @@ class SettingScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {},
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(10.0),
                   child: Row(
-                    children: const [
+                    children: [
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
@@ -233,10 +235,10 @@ class SettingScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {},
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(10.0),
                   child: Row(
-                    children: const [
+                    children: [
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
@@ -274,10 +276,10 @@ class SettingScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {},
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(10.0),
                   child: Row(
-                    children: const [
+                    children: [
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
@@ -315,10 +317,10 @@ class SettingScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {},
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(10.0),
                   child: Row(
-                    children: const [
+                    children: [
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(

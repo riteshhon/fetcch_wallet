@@ -1,4 +1,3 @@
-import 'package:blur/blur.dart';
 import 'package:fetcch_wallet/screens/create_account_screen/createaccount_vm.dart';
 import 'package:fetcch_wallet/utils/nav_constants.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
@@ -39,14 +38,14 @@ class SelectWord4Screen extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    Column(
+                    const Column(
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(top: 40),
+                          padding: EdgeInsets.only(top: 40),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const <Widget>[
+                            children: <Widget>[
                               SizedBox(
                                 width: 140.0,
                                 child: StepProgressIndicator(

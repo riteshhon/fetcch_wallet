@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:fetcch_wallet/screens/home_screen/home_vm.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
 import 'package:flutter/material.dart';
@@ -70,10 +72,10 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Row(
-                children: const <Widget>[
+                children: <Widget>[
                   Text(
                     "\$3563",
                     style: TextStyle(

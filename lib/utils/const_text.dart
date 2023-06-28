@@ -4,4 +4,5 @@ class ConstText {
   static String isPassCodeKey = "passcode";
   static String isPassCodeValKey = "passcodeVal";
   static String isPayIdKey = "payId";
+  static String accessTokenKey = "accessToken";
 }
