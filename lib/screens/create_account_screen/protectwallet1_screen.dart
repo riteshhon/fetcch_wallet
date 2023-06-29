@@ -1,6 +1,8 @@
+import 'package:fetcch_wallet/main.dart';
 import 'package:fetcch_wallet/screens/create_account_screen/createaccount_vm.dart';
 import 'package:fetcch_wallet/utils/nav_constants.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
+import 'package:fetcch_wallet/widgets/show_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:no_context_navigation/no_context_navigation.dart';
 import 'package:stacked/stacked.dart';
@@ -11,6 +13,7 @@ class ProtectWallet1Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    fToast.init(context);
     return ViewModelBuilder<CreateAccountScreenViewModel>.reactive(
       viewModelBuilder: () => CreateAccountScreenViewModel(),
       onViewModelReady: (viewModel) => viewModel.initialise(context),
@@ -18,7 +21,7 @@ class ProtectWallet1Screen extends StatelessWidget {
         backgroundColor: UiConstants.mainColor,
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 44),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -31,23 +34,25 @@ class ProtectWallet1Screen extends StatelessWidget {
                       ),
                       margin: const EdgeInsets.only(top: 40),
                       child: IconButton(
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () => navService
+                            .pushNamed(NavigationConstants.CREATEACCOUNTROUTE),
                         icon: const Icon(Icons.arrow_back_ios_new_rounded),
                         iconSize: 22,
                         color: UiConstants.whiteColor,
                       ),
                     ),
                     const Spacer(),
+                    const SizedBox(width: 25),
                     const Column(
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(top: 40),
+                          padding: EdgeInsets.only(top: 50),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               SizedBox(
-                                width: 140.0,
+                                width: 180.0,
                                 child: StepProgressIndicator(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   totalSteps: 5,
@@ -59,12 +64,12 @@ class ProtectWallet1Screen extends StatelessWidget {
                                   roundedEdges: Radius.circular(80),
                                 ),
                               ),
-                              SizedBox(width: 20),
+                              SizedBox(width: 35),
                               Text(
                                 "1/5",
                                 style: TextStyle(
                                   fontSize: 12,
-                                  fontWeight: FontWeight.w800,
+                                  fontWeight: FontWeight.w700,
                                   color: UiConstants.titleColor,
                                 ),
                               ),
@@ -80,19 +85,17 @@ class ProtectWallet1Screen extends StatelessWidget {
                 const Text(
                   'Protect Your \nWallet',
                   style: TextStyle(
-                    fontSize: 32,
-                    letterSpacing: 2,
-                    fontWeight: FontWeight.w800,
+                    fontSize: 36,
+                    fontWeight: FontWeight.w700,
                     color: UiConstants.titleColor,
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 4),
                 const Text(
                   'The Extra Layer of security helps prevent someone with your phone from accessing your funds',
                   style: TextStyle(
                     fontSize: 14,
-                    height: 1.5,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                     color: UiConstants.subTitleColor,
                   ),
                 ),
@@ -119,8 +122,7 @@ class ProtectWallet1Screen extends StatelessWidget {
                     const Text(
                       'I agree to the ',
                       style: TextStyle(
-                        fontSize: 14,
-                        height: 1.5,
+                        fontSize: 15,
                         fontWeight: FontWeight.w500,
                         color: UiConstants.subTitleColor,
                       ),
@@ -128,20 +130,18 @@ class ProtectWallet1Screen extends StatelessWidget {
                     GestureDetector(
                       onTap: () {},
                       child: const Text(
-                        ' terms ',
+                        'terms ',
                         style: TextStyle(
-                          fontSize: 14,
-                          height: 1.5,
+                          fontSize: 15,
                           fontWeight: FontWeight.w500,
                           color: UiConstants.whiteColor,
                         ),
                       ),
                     ),
                     const Text(
-                      ' & ',
+                      '& ',
                       style: TextStyle(
-                        fontSize: 14,
-                        height: 1.5,
+                        fontSize: 15,
                         fontWeight: FontWeight.w500,
                         color: UiConstants.subTitleColor,
                       ),
@@ -149,7 +149,7 @@ class ProtectWallet1Screen extends StatelessWidget {
                     GestureDetector(
                       onTap: () {},
                       child: const Text(
-                        ' privacy policy ',
+                        'privacy policy',
                         style: TextStyle(
                           fontSize: 14,
                           height: 1.5,
@@ -175,16 +175,11 @@ class ProtectWallet1Screen extends StatelessWidget {
                                 NavigationConstants.PASSCODESCREENROUTE,
                               );
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    'Please accept the terms & privacy policy',
-                                    style: TextStyle(
-                                      color: UiConstants.whiteColor,
-                                    ),
-                                  ),
-                                  backgroundColor: UiConstants.darkColorPurple,
-                                ),
+                              showToast(
+                                fToast,
+                                'Please accept the terms & privacy policy',
+                                Icons.info,
+                                Colors.blue[600]!,
                               );
                             }
                           },
@@ -192,17 +187,19 @@ class ProtectWallet1Screen extends StatelessWidget {
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(
                               RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
+                                borderRadius: BorderRadius.circular(89.0),
                                 side: const BorderSide(
-                                    color: UiConstants.lightGreyColor),
+                                  color: UiConstants.lightGreyColor,
+                                  width: 3,
+                                ),
                               ),
                             ),
                           ),
                           child: const Text(
                             'Use Passcode',
                             style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.normal,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ),
@@ -219,16 +216,11 @@ class ProtectWallet1Screen extends StatelessWidget {
                                 NavigationConstants.SECUREWALLETROUTE,
                               );
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    'Please accept the terms & privacy policy',
-                                    style: TextStyle(
-                                      color: UiConstants.whiteColor,
-                                    ),
-                                  ),
-                                  backgroundColor: UiConstants.darkColorPurple,
-                                ),
+                              showToast(
+                                fToast,
+                                'Please accept the terms & privacy policy',
+                                Icons.info,
+                                Colors.blue[600]!,
                               );
                             }
                           },
@@ -236,9 +228,11 @@ class ProtectWallet1Screen extends StatelessWidget {
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(
                               RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
+                                borderRadius: BorderRadius.circular(89.0),
                                 side: const BorderSide(
-                                    color: UiConstants.lightGreyColor),
+                                  color: UiConstants.lightGreyColor,
+                                  width: 3,
+                                ),
                               ),
                             ),
                           ),
@@ -250,8 +244,8 @@ class ProtectWallet1Screen extends StatelessWidget {
                             child: Text(
                               'Use Biometrics',
                               style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.normal,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ),

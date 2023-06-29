@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 showLoadingDialog(BuildContext context, bool show) {
   AlertDialog alert = AlertDialog(
     content: SizedBox(
-      height: 80,
+      height: 100,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(height: 8),
           ShowCircularProgressIndicator(height: 30, width: 30),

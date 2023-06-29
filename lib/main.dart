@@ -55,6 +55,7 @@ class Core extends StatelessWidget {
       navigatorKey: NavigationService.navigationKey,
       title: 'Fetcch Wallet',
       theme: ThemeData(
+        fontFamily: "Jost",
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: UiConstants.mainColor,
           secondary: UiConstants.secondaryColor,

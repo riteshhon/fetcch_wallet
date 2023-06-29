@@ -3,8 +3,8 @@ import 'package:fetcch_wallet/utils/nav_constants.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:no_context_navigation/no_context_navigation.dart';
+import 'package:slide_to_confirm/slide_to_confirm.dart';
 import 'package:stacked/stacked.dart';
-import 'package:swipeable_button_view/swipeable_button_view.dart';
 
 class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
@@ -53,7 +53,7 @@ class Page1 extends StatelessWidget {
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 44),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -61,17 +61,16 @@ class Page1 extends StatelessWidget {
                 const Text(
                   'Pay.',
                   style: TextStyle(
-                    fontSize: 46,
-                    fontWeight: FontWeight.w800,
+                    fontSize: 64,
+                    fontWeight: FontWeight.bold,
                     color: UiConstants.titleColor,
                   ),
                 ),
-                const SizedBox(height: 10),
                 const Text(
                   'Simple. Elegant. Smooth',
                   style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
                     color: UiConstants.subTitleColor,
                   ),
                 ),
@@ -81,7 +80,7 @@ class Page1 extends StatelessWidget {
                 const Text(
                   'First application to truly provide a simplified payments on blockchain',
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 15,
                     color: UiConstants.describeColor,
                   ),
                 ),
@@ -89,30 +88,22 @@ class Page1 extends StatelessWidget {
                 Column(
                   children: [
                     Center(
-                      child: SwipeableButtonView(
-                        buttonColor: UiConstants.mainColor,
-                        onFinish: () async {
+                      child: ConfirmationSlider(
+                        onConfirmation: () {
                           viewModel.mainController.nextPage(
                             duration: const Duration(seconds: 1),
                             curve: Curves.linear,
                           );
                         },
-                        isFinished: viewModel.isFinish,
-                        onWaitingProcess: () {
-                          Future.delayed(const Duration(seconds: 2), () {
-                            viewModel.buttonOnSwipe(true);
-                          });
-                        },
-                        activeColor: UiConstants.bgColorGrey,
-                        buttonWidget: const Icon(
-                          Icons.double_arrow_rounded,
-                          color: UiConstants.whiteColor,
+                        foregroundColor: UiConstants.bgColorGrey,
+                        backgroundColor: UiConstants.whiteColor,
+                        text: "Get Started",
+                        textStyle: const TextStyle(
+                          color: UiConstants.bgColorGrey,
+                          fontSize: 20,
                         ),
-                        buttonText: "Get Started",
-                        buttontextstyle: const TextStyle(
-                          color: UiConstants.whiteColor,
-                          fontSize: 18,
-                        ),
+                        height: 73,
+                        width: 323,
                       ),
                     ),
                   ],
@@ -142,7 +133,7 @@ class Page2 extends StatelessWidget {
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 44),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -150,17 +141,16 @@ class Page2 extends StatelessWidget {
                 const Text(
                   'Pay.',
                   style: TextStyle(
-                    fontSize: 46,
-                    fontWeight: FontWeight.w800,
+                    fontSize: 64,
+                    fontWeight: FontWeight.bold,
                     color: UiConstants.titleColor,
                   ),
                 ),
-                const SizedBox(height: 10),
                 const Text(
                   'Simple. Elegant. Smooth',
                   style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
                     color: UiConstants.subTitleColor,
                   ),
                 ),
@@ -170,7 +160,7 @@ class Page2 extends StatelessWidget {
                 const Text(
                   'You need to Connect your Crypto Wallet here, Dont have one? Lets Create now!',
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 15,
                     color: UiConstants.describeColor,
                   ),
                 ),
@@ -182,8 +172,8 @@ class Page2 extends StatelessWidget {
                         children: [
                           // Create wallet button
                           SizedBox(
-                            width: double.infinity,
-                            height: 60,
+                            width: 323,
+                            height: 73,
                             child: ElevatedButton(
                               onPressed: () {
                                 navService.pushNamed(
@@ -194,17 +184,20 @@ class Page2 extends StatelessWidget {
                                 shape: MaterialStateProperty.all<
                                     RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
+                                    borderRadius: BorderRadius.circular(89.0),
                                     side: const BorderSide(
-                                        color: UiConstants.lightGreyColor),
+                                      color: UiConstants.lightGreyColor,
+                                      width: 3,
+                                    ),
                                   ),
                                 ),
                               ),
                               child: const Text(
                                 'Create Wallet',
                                 style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.normal,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400,
+                                  color: UiConstants.whiteColor,
                                 ),
                               ),
                             ),
@@ -212,25 +205,28 @@ class Page2 extends StatelessWidget {
                           const SizedBox(height: 20),
                           // Connect wallet button
                           SizedBox(
-                            width: double.infinity,
-                            height: 60,
+                            width: 323,
+                            height: 73,
                             child: ElevatedButton(
                               onPressed: () {},
                               style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
                                     RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
+                                    borderRadius: BorderRadius.circular(89.0),
                                     side: const BorderSide(
-                                        color: UiConstants.lightGreyColor),
+                                      color: UiConstants.lightGreyColor,
+                                      width: 3,
+                                    ),
                                   ),
                                 ),
                               ),
                               child: const Text(
                                 'Connect Wallet',
                                 style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.normal,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400,
+                                  color: UiConstants.whiteColor,
                                 ),
                               ),
                             ),

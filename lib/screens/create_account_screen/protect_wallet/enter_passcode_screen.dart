@@ -1,7 +1,7 @@
 import 'package:fetcch_wallet/screens/create_account_screen/createaccount_vm.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:pinput/pinput.dart';
 import 'package:stacked/stacked.dart';
 
 class PasscodeScreen extends StatelessWidget {
@@ -50,7 +50,7 @@ class PasscodeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 44),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -71,47 +71,63 @@ class PasscodeView extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 60),
+            const SizedBox(height: 48),
             const Text(
               'Enter Passcode',
               style: TextStyle(
-                fontSize: 32,
-                letterSpacing: 2,
-                fontWeight: FontWeight.w800,
+                fontSize: 36,
+                fontWeight: FontWeight.w700,
                 color: UiConstants.titleColor,
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 4),
             const Text(
               'Set a 6 Digit Passcode to unlock your wallet each time you use your wallet. It can’t be used to recover your wallet.',
               style: TextStyle(
                 fontSize: 14,
-                height: 1.5,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
                 color: UiConstants.subTitleColor,
               ),
             ),
             const SizedBox(height: 50),
-            OtpTextField(
-              mainAxisAlignment: MainAxisAlignment.center,
-              numberOfFields: 6,
-              textStyle: const TextStyle(
-                color: UiConstants.whiteColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
+            Center(
+              child: Pinput(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                pinContentAlignment: Alignment.center,
+                onCompleted: (value) {
+                  viewModel.setPassCode(value);
+                  viewModel.mainController.nextPage(
+                    duration: const Duration(milliseconds: 900),
+                    curve: Curves.linear,
+                  );
+                },
+                autofocus: true,
+                closeKeyboardWhenCompleted: true,
+                defaultPinTheme: const PinTheme(
+                  decoration: BoxDecoration(
+                    color: UiConstants.mainColor,
+                    border: Border(
+                      bottom: BorderSide(
+                        width: 3,
+                        color: UiConstants.greyColor1,
+                      ),
+                    ),
+                  ),
+                  textStyle: TextStyle(
+                    color: UiConstants.whiteColor,
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                ),
+                obscuringWidget: Container(
+                  color: UiConstants.whiteColor,
+                ),
+                showCursor: false,
+                length: 6,
+                keyboardType: TextInputType.number,
               ),
-              //runs when a code is typed in
-              onCodeChanged: (String code) {
-                //handle validation or checks here
-              },
-              onSubmit: (value) {
-                viewModel.setPassCode(value);
-                viewModel.mainController.nextPage(
-                  duration: const Duration(seconds: 1),
-                  curve: Curves.linear,
-                );
-              },
-              clearText: true,
             ),
           ],
         ),
@@ -134,7 +150,7 @@ class ReEnterPasscodeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 44),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -155,44 +171,59 @@ class ReEnterPasscodeView extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 60),
+            const SizedBox(height: 48),
             const Text(
               'Re-Enter Passcode',
               style: TextStyle(
-                fontSize: 32,
-                letterSpacing: 2,
-                fontWeight: FontWeight.w800,
+                fontSize: 36,
+                fontWeight: FontWeight.w700,
                 color: UiConstants.titleColor,
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 4),
             const Text(
               'Verify your 6 Digit Passcode',
               style: TextStyle(
                 fontSize: 14,
-                height: 1.5,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
                 color: UiConstants.subTitleColor,
               ),
             ),
-            const SizedBox(height: 95),
-            OtpTextField(
-              mainAxisAlignment: MainAxisAlignment.center,
-              numberOfFields: 6,
-              textStyle: const TextStyle(
-                color: UiConstants.whiteColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
+            const SizedBox(height: 70),
+            Center(
+              child: Pinput(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                pinContentAlignment: Alignment.center,
+                onCompleted: (value) {
+                  viewModel.matchPasscode(context, value);
+                },
+                autofocus: true,
+                closeKeyboardWhenCompleted: true,
+                defaultPinTheme: const PinTheme(
+                  decoration: BoxDecoration(
+                    color: UiConstants.mainColor,
+                    border: Border(
+                      bottom: BorderSide(
+                        width: 3,
+                        color: UiConstants.greyColor1,
+                      ),
+                    ),
+                  ),
+                  textStyle: TextStyle(
+                    color: UiConstants.whiteColor,
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                ),
+                showCursor: false,
+                obscuringWidget: Container(
+                  color: UiConstants.whiteColor,
+                ),
+                length: 6,
+                keyboardType: TextInputType.number,
               ),
-              //runs when a code is typed in
-              onCodeChanged: (String code) {
-                //handle validation or checks here
-              },
-              onSubmit: (value) {
-                debugPrint(value);
-                viewModel.matchPasscode(context, value);
-              },
-              clearText: true,
             ),
           ],
         ),

@@ -8,9 +8,9 @@ import 'package:fetcch_wallet/services/post_repo.dart';
 import 'package:fetcch_wallet/utils/const_text.dart';
 import 'package:fetcch_wallet/utils/nav_constants.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
-import 'package:fetcch_wallet/widgets/custom_dialogboxes.dart';
 import 'package:fetcch_wallet/widgets/loading_dialog.dart';
 import 'package:fetcch_wallet/widgets/show_toast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
@@ -71,8 +71,10 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
   LoginUserModel get loginUserModel => _loginUserModel;
   CreateUserModel get userModel => _createUserModel;
   ErrorModel get errorModel => _errorModel;
-
   int get selectedWords => _selectedWords;
+
+  late FirebaseAuth mAuth;
+  bool? newUser = false;
 
   void initialise(BuildContext context) {
     fToast.init(context);
@@ -82,6 +84,7 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
   void initController() {
     _mainController = PageController();
     _payIdController = TextEditingController();
+    mAuth = FirebaseAuth.instance;
   }
 
   void checkBoxChecked(bool value) {
@@ -108,7 +111,7 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
     if (value == _passCodeValue) {
       showLoadingDialog(context, true);
       // logic to check user exist or not
-      loginUser(context, passCodeValue);
+      loginUser(context, value);
     } else {
       showToast(
         fToast,
@@ -358,8 +361,8 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
     _passCodeValue = prefs.getString(ConstText.isPassCodeValKey).toString();
     if (_payIdController.text.isNotEmpty) {
       response = await _postRepo.createUser(
-        '${firebseAuth?.displayName}',
-        '${firebseAuth?.email}',
+        '${mAuth.currentUser?.displayName}',
+        '${mAuth.currentUser?.email}',
         _passCodeValue,
         _payIdController.text,
       );
@@ -370,6 +373,8 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
         loginUser(context, _passCodeValue);
         _isCreateUserLoading = false;
         notifyListeners();
+
+        navService.pushNamed(NavigationConstants.CREATINGWALLETROUTE);
       } else {
         _errorModel = erroModelFromJson(response.body);
         logger.e(Level.error,
@@ -392,7 +397,8 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
   void loginUser(BuildContext context, String passCodeValue) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     response =
-        await _postRepo.loginUser('${firebseAuth?.email}', passCodeValue);
+        await _postRepo.loginUser('${mAuth.currentUser?.email}', passCodeValue);
+    logger.i('Login details\n${mAuth.currentUser?.email}   $passCodeValue');
 
     if (response.statusCode == 202 || response.statusCode == 200) {
       _loginUserModel = loginUserModelFromJson(response.body);
@@ -414,16 +420,13 @@ class CreateAccountScreenViewModel extends ChangeNotifier {
       if (_errorModel.error.contains('UserDoesNotExists ')) {
         prefs.setString(ConstText.isPassCodeValKey, passCodeValue);
         prefs.setBool(ConstText.isPassCodeKey, true);
-        SuccessAlertBox(
-          context: context,
-          buttonText: "Create Pay ID",
-          messageText: "Passcode successfully set, Please create your pay id",
-          title: "Success",
-          buttonOnClick: () {
-            Navigator.of(context).pop();
-            navService
-                .pushNamedAndRemoveUntil(NavigationConstants.CREATEPAYIDROUTE);
-          },
+        navService
+            .pushNamedAndRemoveUntil(NavigationConstants.CREATEPAYIDROUTE);
+        showToast(
+          fToast,
+          'Passcode successfully set, Please create your pay id',
+          Icons.done,
+          Colors.green[400]!,
         );
       } else {
         showLoadingDialog(context, false);

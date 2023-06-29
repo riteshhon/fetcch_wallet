@@ -1,7 +1,9 @@
 import 'package:fetcch_wallet/screens/create_account_screen/createaccount_vm.dart';
+import 'package:fetcch_wallet/utils/nav_constants.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
 import 'package:fetcch_wallet/widgets/circular_progressIndicator.dart';
 import 'package:flutter/material.dart';
+import 'package:no_context_navigation/no_context_navigation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
@@ -12,12 +14,14 @@ class CreatePayId5Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<CreateAccountScreenViewModel>.reactive(
       viewModelBuilder: () => CreateAccountScreenViewModel(),
-      onViewModelReady: (viewModel) => viewModel.initialise(context),
+      onViewModelReady: (viewModel) {
+        viewModel.initialise(context);
+      },
       builder: (context, viewModel, child) => Scaffold(
         backgroundColor: UiConstants.mainColor,
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 44),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -30,7 +34,8 @@ class CreatePayId5Screen extends StatelessWidget {
                       ),
                       margin: const EdgeInsets.only(top: 40),
                       child: IconButton(
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () => navService
+                            .pushNamed(NavigationConstants.PROTECTWALLETROUTE),
                         icon: const Icon(Icons.arrow_back_ios_new_rounded),
                         iconSize: 22,
                         color: UiConstants.whiteColor,
