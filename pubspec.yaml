@@ -24,7 +24,6 @@ dependencies:
   slide_to_confirm: ^1.1.0
   http: ^0.13.4
   shared_preferences: any
-  google_nav_bar: ^5.0.6
   firebase_core: ^2.14.0
   firebase_auth: ^4.6.3
   google_sign_in: ^5.4.2
@@ -33,6 +32,7 @@ dependencies:
   pinput: ^2.2.31
   timer_count_down: ^2.2.2
   unicons: ^2.1.1
+
 
 
 dev_dependencies:
