@@ -21,15 +21,16 @@ class SettingScreen extends StatelessWidget {
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
             children: <Widget>[
+              const SizedBox(height: 10),
               Row(
                 children: [
                   ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        UiConstants.bgColorGrey,
+                        UiConstants.mainColor,
                       ),
                       side: const MaterialStatePropertyAll(
                         BorderSide(
@@ -68,8 +69,8 @@ class SettingScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   Container(
-                    height: 60,
-                    width: 60,
+                    height: 70,
+                    width: 70,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: UiConstants.bgColorGrey,
@@ -90,254 +91,77 @@ class SettingScreen extends StatelessWidget {
                   const Spacer(),
                 ],
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 46),
               // Setting Screen Content
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    UiConstants.bgColorGrey,
+              Column(
+                children: [
+                  textButton(
+                    () {},
+                    'Edit Profile',
                   ),
-                  side: const MaterialStatePropertyAll(
-                    BorderSide(
-                      color: UiConstants.bgColorGrey,
-                    ),
+                  const SizedBox(height: 10),
+                  textButton(
+                    () {},
+                    'Display',
                   ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
+                  const SizedBox(height: 10),
+                  textButton(
+                    () {},
+                    'Backup',
                   ),
-                  padding: const MaterialStatePropertyAll(
-                    EdgeInsets.symmetric(vertical: 6),
+                  const SizedBox(height: 10),
+                  textButton(
+                    () {},
+                    'Security',
                   ),
-                ),
-                onPressed: () {},
-                child: const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          "Edit Profile",
-                          style: TextStyle(
-                            color: UiConstants.whiteColor,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                      Spacer(),
-                      Icon(Icons.keyboard_arrow_right_rounded),
-                    ],
+                  const SizedBox(height: 10),
+                  textButton(
+                    () {},
+                    'Notifications',
                   ),
+                  const SizedBox(height: 10),
+                  textButton(
+                    () {},
+                    'Help',
+                  ),
+                ],
+              ),
+              const SizedBox(height: 60),
+              const Text(
+                'v2023.21.0(4534)',
+                style: TextStyle(
+                  color: UiConstants.describeColor,
                 ),
               ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    UiConstants.bgColorGrey,
-                  ),
-                  side: const MaterialStatePropertyAll(
-                    BorderSide(
-                      color: UiConstants.bgColorGrey,
-                    ),
-                  ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                  ),
-                  padding: const MaterialStatePropertyAll(
-                    EdgeInsets.symmetric(vertical: 6),
-                  ),
-                ),
-                onPressed: () {},
-                child: const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          "Dsiplay",
-                          style: TextStyle(
-                            color: UiConstants.whiteColor,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                      Spacer(),
-                      Icon(Icons.keyboard_arrow_right_rounded),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    UiConstants.bgColorGrey,
-                  ),
-                  side: const MaterialStatePropertyAll(
-                    BorderSide(
-                      color: UiConstants.bgColorGrey,
-                    ),
-                  ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                  ),
-                  padding: const MaterialStatePropertyAll(
-                    EdgeInsets.symmetric(vertical: 6),
-                  ),
-                ),
-                onPressed: () {},
-                child: const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          "Backup",
-                          style: TextStyle(
-                            color: UiConstants.whiteColor,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                      Spacer(),
-                      Icon(Icons.keyboard_arrow_right_rounded),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    UiConstants.bgColorGrey,
-                  ),
-                  side: const MaterialStatePropertyAll(
-                    BorderSide(
-                      color: UiConstants.bgColorGrey,
-                    ),
-                  ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                  ),
-                  padding: const MaterialStatePropertyAll(
-                    EdgeInsets.symmetric(vertical: 6),
-                  ),
-                ),
-                onPressed: () {},
-                child: const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          "Security",
-                          style: TextStyle(
-                            color: UiConstants.whiteColor,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                      Spacer(),
-                      Icon(Icons.keyboard_arrow_right_rounded),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    UiConstants.bgColorGrey,
-                  ),
-                  side: const MaterialStatePropertyAll(
-                    BorderSide(
-                      color: UiConstants.bgColorGrey,
-                    ),
-                  ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                  ),
-                  padding: const MaterialStatePropertyAll(
-                    EdgeInsets.symmetric(vertical: 6),
-                  ),
-                ),
-                onPressed: () {},
-                child: const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          "Notifications",
-                          style: TextStyle(
-                            color: UiConstants.whiteColor,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                      Spacer(),
-                      Icon(Icons.keyboard_arrow_right_rounded),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    UiConstants.bgColorGrey,
-                  ),
-                  side: const MaterialStatePropertyAll(
-                    BorderSide(
-                      color: UiConstants.bgColorGrey,
-                    ),
-                  ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                  ),
-                  padding: const MaterialStatePropertyAll(
-                    EdgeInsets.symmetric(vertical: 6),
-                  ),
-                ),
-                onPressed: () {},
-                child: const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          "Help",
-                          style: TextStyle(
-                            color: UiConstants.whiteColor,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                      Spacer(),
-                      Icon(Icons.keyboard_arrow_right_rounded),
-                    ],
-                  ),
+              const SizedBox(height: 4),
+              const Text(
+                '©2023 Pay.  All rights reserved.',
+                style: TextStyle(
+                  color: UiConstants.whiteColor,
+                  fontSize: 16,
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget textButton(Function() onPressed, String label) {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: TextButton(
+          onPressed: onPressed,
+          child: Text(
+            label,
+            style: const TextStyle(
+              color: UiConstants.whiteColor,
+              fontSize: 36,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       ),

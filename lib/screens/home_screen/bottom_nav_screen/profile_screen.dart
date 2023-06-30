@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'package:fetcch_wallet/screens/home_screen/home_vm.dart';
 import 'package:fetcch_wallet/utils/ui_constant.dart';
-import 'package:fetcch_wallet/widgets/circular_progressIndicator.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -21,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 35),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -45,8 +44,8 @@ class ProfileScreen extends StatelessWidget {
                     child: Text(
                       'Edit Profile',
                       style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 36,
+                        fontWeight: FontWeight.w700,
                         color: UiConstants.titleColor,
                       ),
                     ),
@@ -57,8 +56,8 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Center(
                 child: Container(
-                  height: 120,
-                  width: 120,
+                  height: 125,
+                  width: 125,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: UiConstants.bgColorGrey,
@@ -105,15 +104,15 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               // Profile
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Your ID',
                   style: TextStyle(
                     color: UiConstants.whiteColor,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 20,
                   ),
                 ),
               ),
@@ -132,20 +131,21 @@ class ProfileScreen extends StatelessWidget {
                     'ritesh@pay',
                     style: TextStyle(
                       color: UiConstants.lightGreyColor,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w700,
                       fontSize: 16,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 6),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
                   'You can’t change ID after Setting it ',
                   style: TextStyle(
                     color: UiConstants.lightGreyColor,
-                    fontSize: 12,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
@@ -157,12 +157,12 @@ class ProfileScreen extends StatelessWidget {
                   'Default Address',
                   style: TextStyle(
                     color: UiConstants.whiteColor,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 20,
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 6),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 16),
@@ -202,12 +202,12 @@ class ProfileScreen extends StatelessWidget {
                   'Secondary Address',
                   style: TextStyle(
                     color: UiConstants.whiteColor,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 20,
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 6),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 16),
@@ -240,7 +240,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               // Save Button
-              const SizedBox(height: 30),
+              const SizedBox(height: 80),
               Container(
                 width: double.infinity,
                 padding:
@@ -273,46 +273,6 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-              // Temp LogOut button
-              const SizedBox(height: 10),
-              Container(
-                width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-                child: !viewModel.isLoading
-                    ? ElevatedButton.icon(
-                        icon: const Icon(
-                          Icons.logout_rounded,
-                          color: UiConstants.bgColorGrey,
-                        ),
-                        onPressed: () async {
-                          viewModel.signOut();
-                        },
-                        style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                          ),
-                          backgroundColor: const MaterialStatePropertyAll(
-                            UiConstants.whiteColor,
-                          ),
-                          padding: const MaterialStatePropertyAll(
-                            EdgeInsets.symmetric(vertical: 12),
-                          ),
-                        ),
-                        label: const Text(
-                          'Log Out',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: UiConstants.bgColorGrey,
-                            fontSize: 14,
-                          ),
-                        ),
-                      )
-                    : ShowCircularProgressIndicator(),
               ),
             ],
           ),

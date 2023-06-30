@@ -6,6 +6,7 @@ class UiConstants {
   static const Color lightGreyColor = Color(0xff8E8E8E);
   static const Color bgColorGrey = Color(0xff272727);
   static const Color greyColor1 = Color(0xff8E8E8E);
+  static const Color greyColor2 = Color(0xffAEAEAE);
   static const Color darkColorPurple = Color(0xFF8132FF);
 
   // Text
